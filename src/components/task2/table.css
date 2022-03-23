@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+.table-body {
+  border-collapse: collapse;
+  width: 100%;
+}
+td,
+th {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  /* border: 1px solid #dddddd;
+  box-shadow: 1px 0px 5px 2px;
+  text-align: center;
+  padding: 5px;
+  background: darkslategrey;
+  height: 60px;
+  font-weight: 500; */
+}
+tr:hover {
+  background-color: rgb(221, 141, 178);
+}
+/* tr:nth-child(even) {
+  background-color: #dddddd;
+} */
