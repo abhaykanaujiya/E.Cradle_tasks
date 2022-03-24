@@ -106,7 +106,7 @@ export const Credential = () => {
   };
 
   return (
-    <div className="container">
+    <div className="credentials-container">
       {!isValid ? (
         <div className="credential-body">
           <InputField
@@ -118,7 +118,7 @@ export const Credential = () => {
           ></InputField>
           <>
             {!errors.status && errors.type === "name" && (
-              <p style={{ color: "red" }}>{errors.msg}</p>
+              <p className="p" style={{ color: "red" }}>{errors.msg}</p>
             )}
           </>
           <InputField

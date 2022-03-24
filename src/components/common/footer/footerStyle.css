@@ -1,8 +1,61 @@
 .footer-container {
-  background-color: #ffe1e1;
-  height: 212px;
+  background-color: #d9d9d9;
+  height: 105px;
+  display: flex;
+  padding: 7px;
 }
 .logo {
-  width: 200px;
-  height: 200px;
+  width: 110px;
+  height: 110px;
+}
+.footer-elements {
+  display: flex;
+  flex-flow: row;
+  margin-left: 30px;
+}
+.EC-section {
+  margin: 0px;
+}
+.EC-section-heading {
+  margin: 0px;
+  font-size: 18px;
+}
+.EC-section-paragraph {
+  margin: 0px;
+}
+.version-section {
+  margin: 0px;
+}
+.version-section-heading {
+  margin: 0px;
+  font-size: 18px;
+}
+.version-section-paragraph {
+  margin: 0px;
+}
+.status-section-container {
+  margin-left: 30px;
+}
+.status-section {
+  margin: 0px;
+  display: flex;
+  flex-flow: column;
+}
+.status-section-heading {
+  margin: 0px;
+  font-size: 18px;
+}
+.status-section-paragraph {
+  margin: 0px;
+}
+.status-icon-paragrapgh {
+  margin: 11px;
+}
+
+p {
+  font-size: 17px;
+  font-weight: 400;
+}
+.company-name {
+  margin: 0px;
 }

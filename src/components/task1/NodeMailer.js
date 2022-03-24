@@ -1,15 +1,16 @@
 import { createTransport } from "nodemailer";
 function nodemailer() {
-  let transporter = createTransport({
-    service: "gmail",
-    auth: {
-      user: "cradle.abhay@gmail.com",
-      pass: "Abhay@17715",
-    },
-  });
+ let transporter = createTransport({
+   host: "smtp.ethereal.email",
+   port: 587,
+   auth: {
+     user: "rosalind.gibson7@ethereal.email",
+     pass: "kAmNnjptEsdhNar7uF",
+   },
+ });
 
-  let mailOptions = {
-    from: "cradle.abhay@gmail.com",
+  const mailOptions = {
+    from: "rosalind.gibson7@ethereal.email",
     to: "abhaykanaujiya@gmail.com",
     subject: "Sending Email using Node.js",
     text: "That was easy!",
@@ -23,7 +24,8 @@ function nodemailer() {
     }
   });
 }
-nodemailer();
+
+export default nodemailer
 
 // const { createTransport, SendMailOptions, Transporter } = require("nodemailer");
 
