@@ -3,13 +3,14 @@ import Footer from "./common/footer";
 import Header from "./common/header";
 import { toast, ToastContainer } from "react-toastify";
 
+
 const Container = ({ children }) => {
   return (
     <>
-      <Header />
+      {/* <ToastContainer position="top-center"  /> */}
+      {/* <Header /> */}
       {children}
       <Footer />
-      <ToastContainer position="top-center" />
     </>
   );
 };

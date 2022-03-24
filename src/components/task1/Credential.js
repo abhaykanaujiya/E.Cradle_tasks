@@ -1,27 +1,32 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputField from "../common/input";
 import "./credential.css";
-import { post_url } from "../../constants/Constants";
-import {  toast } from "react-toastify";
+import { POST_URL, options } from "../../constants/Constants";
+import { toast } from "react-toastify";
 import Validate from "../validation";
-
+import Table from "../task2/Table";
+// import { Mailer } from "../task1/NodeMailer";
 export const Credential = () => {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
-  const [jobstatus, setJobStatus] = useState("");
-  const [checkBox, setCheckBox] = useState(false);
+  const [jobStatus, setJobStatus] = useState("");
+  const [isCheckBox, setIsCheckBox] = useState(false);
   const [secret, setSecret] = useState("");
-  const [error, setError] = useState({ type: "", msg: "", status: false });
+  const [errors, setErrors] = useState({ type: "", msg: "", status: false });
+  const [isValid, setIsValid] = useState(false);
 
-  const options = [
-    { value: " Select job status", label: " Select job status" },
-    { value: "Unemployed", label: "Unemployed" },
-    { value: "Working", label: "Working" },
-    { value: "Student", label: "Student" },
-    { value: "Retired", label: "Retired" },
-  ];
+  // useEffect(() => {
+  //   Mailer.send(
+  //     "WelcomeEmail",
+  //     { firstName: "Mathieu" },
+  //     {
+  //       to: "abhaykanaujiya@gmail.com",
+  //     }
+  //   );
+  // }, []);
+
   const handleName = (e) => {
     setName(e.target.value);
     console.log(name, "name");
@@ -35,8 +40,8 @@ export const Credential = () => {
     console.log(email, "email");
   };
 
-  const handleCheckBox = () => {
-    setCheckBox(true);
+  const handleCheckBox = (e) => {
+    setIsCheckBox(e.target.checked);
   };
 
   const handleUniqueCode = (e) => {
@@ -46,30 +51,36 @@ export const Credential = () => {
     setJobStatus(e.target.value);
   };
   const handleSubmit = () => {
-    const result = Validate(name, address, email, jobstatus, checkBox, secret);
+    const result = Validate(
+      name,
+      address,
+      email,
+      jobStatus,
+      isCheckBox,
+      secret
+    );
     if (!result?.status) {
-      console.log(result,"result");
-      setError(result);
-        // toast(error.msg || "Users details are not correct!");
-    } else {
+      console.log(result, "result");
+      setErrors(result);
 
-      setError({ type: "", msg: "", status: true });
-            console.log(error,"error");
-      const add = {
+      // toast(error.msg || "Users details are not correct!");
+    } else {
+      setErrors({ type: "", msg: "", status: true });
+      const data = {
         Name: name,
         Address: address,
         Email: email,
-        JobStatus: jobstatus,
-        DoLiketoCode: checkBox,
+        JobStatus: jobStatus,
+        DoLiketoCode: isCheckBox,
         Secret: secret,
       };
       axios
-        .post(post_url, add)
+        .post(POST_URL, data)
         .then((res) => {
           if (res.status === 200) {
             toast.success("🦄 Wow so easy!", {
               position: "top-right",
-              autoClose: 5000,
+              autoClose: 2000,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
@@ -80,8 +91,9 @@ export const Credential = () => {
             setAddress("");
             setEmail("");
             setJobStatus("");
-            setCheckBox(false);
+            setIsCheckBox(false);
             setSecret("");
+            setIsValid(true);
           }
           console.log(res.data, "ressss");
         })
@@ -91,71 +103,102 @@ export const Credential = () => {
           );
         });
     }
-
-  
   };
 
   return (
     <div className="container">
-      <div className="credential-body">
-        <InputField
-          className={"input-box"}
-          type="text"
-          value={name}
-          placeholder={"Enter the Name"}
-          onChange={handleName}
-        />
-        <InputField
-          className={"input-box"}
-          type="text"
-          value={address}
-          placeholder={"Enter the Address"}
-          onChange={handleAddress}
-        />
-        <InputField
-          className={"input-box"}
-          type="text"
-          value={email}
-          placeholder={"Enter the Email"}
-          onChange={handleEmail}
-        />
-        <InputField
-          className={"input-box"}
-          type="text"
-          placeholder={"Enter Unique Code"}
-          value={secret}
-          onChange={handleUniqueCode}
-        />
-        <div className="drop-down-check-box-container">
-          <select
-            className="drop-down"
-            value={jobstatus}
-            onChange={(e) => handleDropDown(e)}
-          >
-            {options.map((index) => (
-              <option key={index.value} value={index.value}>
-                {index.label}
-              </option>
-            ))}
-          </select>
-          <div className="check-box">
-            <InputField
-              className={"check-box"}
-              type="checkbox"
-              checked={checkBox}
-              onChange={handleCheckBox}
-            />
-
+      {!isValid ? (
+        <div className="credential-body">
+          <InputField
+            className={"input-box"}
+            type="text"
+            value={name}
+            placeholder={"Enter the Name"}
+            onChange={handleName}
+          ></InputField>
+          <>
+            {!errors.status && errors.type === "name" && (
+              <p style={{ color: "red" }}>{errors.msg}</p>
+            )}
+          </>
+          <InputField
+            className={"input-box"}
+            type="text"
+            value={address}
+            placeholder={"Enter the Address"}
+            onChange={handleAddress}
+          />
+          <>
+            {!errors.status && errors.type === "address" && (
+              <p style={{ color: "red" }}>{errors.msg}</p>
+            )}
+          </>
+          <InputField
+            className={"input-box"}
+            type="text"
+            value={email}
+            placeholder={"Enter the Email"}
+            onChange={handleEmail}
+          />
+          <>
+            {" "}
+            {!errors.status && errors.type === "email" && (
+              <p style={{ color: "red" }}>{errors.msg}</p>
+            )}
+          </>
+          <InputField
+            className={"input-box"}
+            type="text"
+            placeholder={"Enter Unique Code"}
+            value={secret}
+            onChange={handleUniqueCode}
+          />
+          <>
+            {!errors.status && errors.type === "uniqueCode" && (
+              <p style={{ color: "red" }}>{errors.msg}</p>
+            )}
+          </>
+          <div className="drop-down-check-box-container">
+            <select
+              className="drop-down"
+              value={jobStatus}
+              onChange={(e) => handleDropDown(e)}
+            >
+              {options.map((index) => (
+                <option key={index.value} value={index.value}>
+                  {index.label}
+                </option>
+              ))}
+            </select>
+            <div>
+              {!errors.status && errors.type === "jobStatus" && (
+                <p style={{ color: "red" }}>{errors.msg}</p>
+              )}
+            </div>
             <>
-              <label>Do like to code</label>
+              <div className="check-box">
+                <InputField
+                  className={"check-box"}
+                  type="checkbox"
+                  checked={isCheckBox}
+                  onChange={handleCheckBox}
+                />
+                <label>Do like to code</label>
+              </div>
+              <div>
+                {!errors.status && errors.type === "doLiketoCode" && (
+                  <p style={{ color: "red" }}>{errors.msg}</p>
+                )}
+              </div>
             </>
           </div>
+          <button className="btn" onClick={handleSubmit}>
+            Submit
+          </button>
         </div>
-
-        <button className="btn" onClick={handleSubmit}>
-          Submit
-        </button>
-      </div>
+      ) : (
+        <Table />
+      )}
     </div>
   );
 };

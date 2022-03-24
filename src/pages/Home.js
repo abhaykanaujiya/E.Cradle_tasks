@@ -4,10 +4,11 @@ import { Credential } from "../components/task1/Credential";
 // import Table from "../components/task2/Table";
 
 const HomePage = () => {
- 
+
   return (
     <Container>
       <Credential />
+    
       {/* <Table/> */}
     </Container>
   );

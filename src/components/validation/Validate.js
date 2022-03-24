@@ -6,6 +6,8 @@ const Validate = (
   doLiketoCode,
   uniqueCode
 ) => {
+  console.log( doLiketoCode,"gfgfhhjgv");
+  const regex = /.+\@.+\..+/;
   if (name === "") {
     return {
       type: "name",
@@ -18,27 +20,33 @@ const Validate = (
       msg: "address is missing",
       status: false,
     };
-  } else if (email === "") {
+  } else if (regex.test(email) === false) {
     return {
       type: "email",
       msg: "email number is invalid",
       status: false,
     };
-  } else if (uniqueCode === "") {
+  } else if (uniqueCode !== "72dhefe") {
     return {
       type: "uniqueCode",
       msg: "uniqueCode is invalid",
       status: false,
     };
-  } else if (jobStatus === "") {
+  } else if (
+    jobStatus === "" &&
+    jobStatus !== "Unemployed" &&
+    jobStatus !== "Working" &&
+    jobStatus !== "Student" &&
+    jobStatus !== "Retired"
+  ) {
     return {
-      type: "job status",
+      type: "jobStatus",
       msg: "jobStatus number is invalid",
       status: false,
     };
-  } else if (doLiketoCode === Boolean) {
+  } else if ( !doLiketoCode ) {
     return {
-      type: "doLiketoCode ",
+      type: "doLiketoCode",
       msg: "doLiketoCode is invalid",
       status: false,
     };

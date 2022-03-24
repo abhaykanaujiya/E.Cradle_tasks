@@ -1,19 +1,26 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { get_url } from "../../constants/Constants";
-import { toast } from "react-toastify";
+import React, { useEffect, useState } from "react";
+import { GET_URL } from "../../constants/Constants";
+// import { toast } from "react-toastify";
 import "./table.css";
 
 const Table = () => {
   const [tableData, setTableData] = useState([]);
-  axios
-    .get(get_url, {
-      headers: { token: "v3p42mqQDWrg9j4gvbTrxT808n30vr5483" },
-    })
-    .then((res) => {
-      setTableData(res.data.data);
-    })
-    .catch((error) => console.log(error.response, "error"));
+  const result = () => {
+    axios
+      .get(GET_URL, {
+        headers: { token: "v3p42mqQDWrg9j4gvbTrxT808n30vr5483" },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setTableData(res.data.data);
+        }
+      })
+      .catch((error) => console.log(error.response));
+  };
+  useEffect(() => {
+    result();
+  }, []);
   return (
     <div className="table-container">
       <table className="table-body">
