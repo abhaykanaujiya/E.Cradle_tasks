@@ -1,52 +1,67 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { GET_URL } from "../../constants/Constants";
+import { GET_TABLE_URL, TOKEN_KEY, UNIQUE_CODE } from "../../constants/Constants";
+import {Loader} from "../../loader/Loader";
 // import { toast } from "react-toastify";
 import "./table.css";
 
+const getRequestPayload = (endpoiint) => {
+  console.log(endpoiint, "end");
+  return {
+    url: endpoiint,
+    headers: { token: TOKEN_KEY },
+    method: "get",
+  };
+};
+
 const Table = () => {
   const [tableData, setTableData] = useState([]);
-  const result = () => {
-    axios
-      .get(GET_URL, {
-        headers: { token: "v3p42mqQDWrg9j4gvbTrxT808n30vr5483" },
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          setTableData(res.data.data);
-        }
-      })
-      .catch((error) => console.log(error.response));
-  };
-  useEffect(() => {
-    result();
-  }, []);
-  return (
-    <div className="table-container">
-      <table className="table-body">
-        <tbody>
-          <tr>
-            <th>SN</th>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Email</th>
-            <th>Jobstatus</th>
-            <th>DoLiketoCode</th>
-          </tr>
+  const [isLoading,setIsLoading]=useState(true)
 
-          {tableData?.map((v, index) => (
-            <tr key={index}>
-              <td>{index + 1}</td>
-              <td>{v.Name}</td>
-              <td>{v.Address}</td>
-              <td>{v.Email}</td>
-              <td>{v.JobStatus}</td>
-              <td>{`${v.DoLiketoCode}`}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+  useEffect(() => {
+    fetchTableData();
+  }, []);
+
+  const fetchTableData = async () => {
+    try {
+      const requestPayload = getRequestPayload(GET_TABLE_URL+UNIQUE_CODE);
+      const response = await axios(requestPayload);
+      if (response.status === 200) {
+        console.log(response);
+        setTableData(response.data?.data || []);
+        setIsLoading(false)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <table className="table-container">
+      {isLoading?<Loader/> :  <tbody>
+        <tr>
+          <th>SN</th>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Email</th>
+          <th>Jobstatus</th>
+          <th>DoLiketoCode</th>
+        </tr>
+
+        {tableData?.map((v, index) => (
+          <tr key={index}>
+            <td>{index + 1}</td>
+            <td>{v.Name}</td>
+            <td>{v.Address}</td>
+            <td>{v.Email}</td>
+            <td>{v.JobStatus}</td>
+            <td>{`${v.DoLiketoCode}`}</td>
+          </tr>
+        ))}
+      </tbody>}{
+        
+    }
+    </table>
   );
 };
 export default Table;

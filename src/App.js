@@ -1,14 +1,14 @@
-
 import "./App.css";
-import HomePage from "./pages/Home";
+import Navigation from "./components/routers";
+
+
 // import nodemailer from "./components/task1/NodeMailer";
 
 function App() {
-  // nodemailer();
+  // nodemailer()
   return (
     <div className="App">
-      <HomePage />
-    
+      <Navigation />
     </div>
   );
 }

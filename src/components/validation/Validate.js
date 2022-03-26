@@ -6,7 +6,7 @@ const Validate = (
   doLiketoCode,
   uniqueCode
 ) => {
-  console.log( doLiketoCode,"gfgfhhjgv");
+  console.log(doLiketoCode, "gfgfhhjgv");
   const regex = /.+\@.+\..+/;
   if (name === "") {
     return {
@@ -44,7 +44,7 @@ const Validate = (
       msg: "jobStatus number is invalid",
       status: false,
     };
-  } else if ( !doLiketoCode ) {
+  } else if (!doLiketoCode) {
     return {
       type: "doLiketoCode",
       msg: "doLiketoCode is invalid",

@@ -4,8 +4,8 @@ function nodemailer() {
    host: "smtp.ethereal.email",
    port: 587,
    auth: {
-     user: "rosalind.gibson7@ethereal.email",
-     pass: "kAmNnjptEsdhNar7uF",
+     user: process.env.REACT_APP_AUTH_USER,
+     pass: process.env.REACT_APP_AUTH_PASSWORD,
    },
  });
 
