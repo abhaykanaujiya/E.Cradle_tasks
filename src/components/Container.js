@@ -24,7 +24,8 @@ const Container = ({ children, title, buttonTitle }) => {
   return (
     <>
       <Header logo={logo} />
-      <div style={{ margin: "100px" }}>
+      <div style={{
+        marginTop:"115px"}}>
         <div className="table-title-and-button-container">
           <> {title && <h2>{title}</h2>}</>
           <>

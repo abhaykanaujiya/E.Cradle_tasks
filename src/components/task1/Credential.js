@@ -117,14 +117,14 @@ export const Credential = () => {
           value={name}
           placeholder={"Enter the Name"}
           onChange={handleName}
-        ></InputField>
-        <>
-          {!errors.status && errors.type === "name" && (
-            <p className="p" style={{ color: "red" }}>
-              {errors.msg}
-            </p>
-          )}
-        </>
+        />
+
+        {!errors.status && errors.type === "name" && (
+          <p className="p" style={{ color: "red" }}>
+            {errors.msg}
+          </p>
+        )}
+
         <InputField
           className={"input-box"}
           type="text"
@@ -132,11 +132,9 @@ export const Credential = () => {
           placeholder={"Enter the Address"}
           onChange={handleAddress}
         />
-        <>
-          {!errors.status && errors.type === "address" && (
-            <p style={{ color: "red" }}>{errors.msg}</p>
-          )}
-        </>
+        {!errors.status && errors.type === "address" && (
+          <p style={{ color: "red" }}>{errors.msg}</p>
+        )}
         <InputField
           className={"input-box"}
           type="text"
@@ -144,11 +142,9 @@ export const Credential = () => {
           placeholder={"Enter the Email"}
           onChange={handleEmail}
         />
-        <>
-          {!errors.status && errors.type === "email" && (
-            <p style={{ color: "red" }}>{errors.msg}</p>
-          )}
-        </>
+        {!errors.status && errors.type === "email" && (
+          <p style={{ color: "red" }}>{errors.msg}</p>
+        )}
         <div className="secret-field">
           <InputField
             className={"input-box"}
@@ -156,21 +152,21 @@ export const Credential = () => {
             placeholder={"Enter Unique Code"}
             value={secret}
             onChange={handleUniqueCode}
-          ></InputField>
-          <span onClick={passwordShown ? handleEyeOn : handleEyeOff} className="eye">
-            {!passwordShown ? (
-              <img src={eye} style={{ width: "20px", height: "20px" }} />
-            ) : (
-              <img src={close} style={{ width: "20px", height: "20px" }} />
-            )}
+          />
+          <span
+            onClick={passwordShown ? handleEyeOn : handleEyeOff}
+            className="eye"
+          >
+            <img
+              src={!passwordShown ? eye : close}
+              style={{ width: "20px", height: "20px" }}
+            />
           </span>
         </div>
 
-        <>
-          {!errors.status && errors.type === "uniqueCode" && (
-            <p style={{ color: "red" }}>{errors.msg}</p>
-          )}
-        </>
+        {!errors.status && errors.type === "uniqueCode" && (
+          <p style={{ color: "red" }}>{errors.msg}</p>
+        )}
         <div className="drop-down-check-box-container">
           <select
             className="drop-down"
@@ -188,22 +184,20 @@ export const Credential = () => {
               <p style={{ color: "red" }}>{errors.msg}</p>
             )}
           </div>
-          <>
-            <div className="check-box">
-              <InputField
-                className={"check-box"}
-                type="checkbox"
-                checked={isCheckBox}
-                onChange={handleCheckBox}
-              />
-              <label>Do like to code</label>
-            </div>
-            <div>
-              {!errors.status && errors.type === "doLiketoCode" && (
-                <p style={{ color: "red" }}>{errors.msg}</p>
-              )}
-            </div>
-          </>
+          <div className="check-box">
+            <InputField
+              className={"check-box"}
+              type="checkbox"
+              checked={isCheckBox}
+              onChange={handleCheckBox}
+            />
+            <label>Do like to code</label>
+          </div>
+          <div>
+            {!errors.status && errors.type === "doLiketoCode" && (
+              <p style={{ color: "red" }}>{errors.msg}</p>
+            )}
+          </div>
         </div>
         <button className="btn" onClick={handleSubmit}>
           Submit

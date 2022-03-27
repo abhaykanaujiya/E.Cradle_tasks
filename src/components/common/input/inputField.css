@@ -1,6 +1,6 @@
-/* input.focus {
+input:focus {
   outline: none;
-} */
+}
 
 .input-box {
   height: 45px;
@@ -16,7 +16,7 @@ input {
   border-left: 0px;
   border-right: 0px;
   border-top: 0px;
-
+  margin: 5px 0px;
   padding: 5px;
 }
 p {
@@ -24,4 +24,5 @@ p {
 }
 .secret-field {
   display: flex;
+  margin: 5px 0px;
 }
